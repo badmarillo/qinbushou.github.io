@@ -4,7 +4,7 @@ title:      "Hello 2017"
 subtitle:   " \"初体验\""
 date:       2017-02-09 19:11:00
 author:     "marillo"
-header-img: "img/about-bg.jpg"
+header-img: "img/post-bg-2015.jpg"
 catalog: true
 tags:
     - 生活
