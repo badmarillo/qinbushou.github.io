@@ -1,12 +1,12 @@
 # Site settings
-title: marilloW
+title: marillo
 SEOTitle: 你的博客 | Your Blog
 header-img: img/home-bg.jpg
 email: qs.soul@gmail.com
 description: "I'm so cool!?"
 keyword: ""
 url: "http://marillo.me"              # your host, for absolute URL
-baseurl: "/"         # for example, '/blog' if your blog hosted on 'host/blog'
+# baseurl: "/qinbushou.github.io"         # for example, '/blog' if your blog hosted on 'host/blog'
 
 
 
