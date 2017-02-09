@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Site settings
 title: marilloW
 header-img: img/home-bg.jpg
@@ -24,7 +23,3 @@ paginate: 5
 exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
 
 gems: [jekyll-paginate, jekyll-feed]
-=======
-baseurl: /qinbushou.github.io
-theme: jekyll-theme-architect
->>>>>>> origin/master
