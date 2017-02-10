@@ -12,7 +12,7 @@ tags:
 
 
 
-![quickSort](/Users/yyl/Desktop/qinbushou.github.io/img/in-post/quickSort/quickSort.gif)
+![quickSort](/img/in-post/quickSort/quickSort.gif)
 
 #### html 部分
 
