@@ -115,12 +115,7 @@ tags:
   var name = 'Marillo says, "hi"';
   ```
 
-  如果字符串是多行的，需要用 + 连接
-
-  ```javascript
-  var longString = "I took a pill in Ibiza" +
-  			     "To show her I was cool";
-  ```
+  ​
 
 - #### 数字
 
