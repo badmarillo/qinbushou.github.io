@@ -5,7 +5,7 @@ subtitle: "\"上班闲暇之余卡看的书，至今没有看完，已经还给�
 date: 2017-02-10 14:31:00
 author: "marillo"
 header-img: "img/post-bg-js-version.jpg"
-catalog: true
+catalog: false
 tags:
     - JavaScript 
 ---
@@ -83,7 +83,7 @@ tags:
 
 - ####  常量
 
-  ###### 采用大写字母和下划线来命名，下划线用以分割单词
+  采用大写字母和下划线来命名，下划线用以分割单词
 
   ```javascript
   var MAX_COUNT = 10;
@@ -119,7 +119,7 @@ tags:
 
   ```javascript
   var longString = "I took a pill in Ibiza" +
-  			   "To show her I was cool";
+  			     "To show her I was cool";
   ```
 
 - #### 数字
