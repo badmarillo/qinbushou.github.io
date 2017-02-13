@@ -1,0 +1,81 @@
+---
+layout: post
+title: "如何实现一个LazyMan"
+subtitle: "这是典型的javascript流程控制，问题的关键是如何实现人物的顺序执行"
+date: 2017-02-13 10:32:00
+author: "mirillo"
+header-img: "img/about-bg.jpg"
+catalog: false
+tags:
+    - 前端面试考察
+---
+
+
+
+###### 在Express有一个类似的东西叫中间件，这个中间件和我们这里的吃饭，睡觉等人物很类似，每一个中间件执行完成后调用next()函数，这个函数用来调用下一个中间件
+
+###### 对于这个问题，我们也可以利用相似的思路来解决，首先创建一个人物队列，然后利用next()函数来控制任务的顺序执行：
+
+```javascript
+function _LazyMan(name) {
+    this.tasks = [];   
+    var self = this;
+    var fn =(function(n){
+        var name = n;
+        return function(){
+            console.log("Hi! This is " + name + "!");
+            self.next();
+        }
+    })(name);
+    this.tasks.push(fn);
+    setTimeout(function(){
+        self.next();
+    }, 0); // 在下一个事件循环启动任务
+}
+/* 事件调度函数 */
+_LazyMan.prototype.next = function() { 
+    var fn = this.tasks.shift();
+    fn && fn();
+}
+_LazyMan.prototype.eat = function(name) {
+    var self = this;
+    var fn =(function(name){
+        return function(){
+            console.log("Eat " + name + "~");
+            self.next()
+        }
+    })(name);
+    this.tasks.push(fn);
+    return this; // 实现链式调用
+}
+_LazyMan.prototype.sleep = function(time) {
+    var self = this;
+    var fn = (function(time){
+        return function() {
+            setTimeout(function(){
+                console.log("Wake up after " + time + "s!");
+                self.next();
+            }, time * 1000);
+        }
+    })(time);
+    this.tasks.push(fn);
+   return this;
+}
+_LazyMan.prototype.sleepFirst = function(time) {
+    var self = this;
+    var fn = (function(time) {
+        return function() {
+            setTimeout(function() {
+                console.log("Wake up after " + time + "s!");
+                self.next();
+            }, time * 1000);
+        }
+    })(time);
+    this.tasks.unshift(fn);
+    return this;
+}
+/* 封装 */
+function LazyMan(name){
+    return new _LazyMan(name);
+}
+```
