@@ -1,0 +1,284 @@
+---
+layout: post
+title: "几个易错的js知识点整理"
+subtitle: "这些问题都是简单但又容易弄错的"
+date: 2017-02-13 14:28:00
+author: "mirillo"
+header-img: "img/about-bg.jpg"
+catalog: true
+tags:
+    - JavaScript
+---
+
+
+
+##### 变量作用域
+
+```javascript
+var a = 1;
+function test() {
+  var a = 2;
+  console.log(a); // 2
+}
+test(); 
+
+// 函数作用域中声明并赋值了a，且在console之上，所以遵循就近原则输出a等于2.
+```
+
+
+
+```javascript
+var a = 1;
+function test2() {
+  console.log(a); // undefined
+  var a = 2;
+}
+test2();
+
+// 函数作用域虽然声明并赋值了a，但位于console之下，a变量被提升，输出时已声明但没有被赋值，所以输出undefined.			
+```
+
+
+
+```javascript
+var a = 1;
+function test3() {
+  console.log(a); // 1
+  a = 2;
+}
+test3();
+
+// 函数作用域中的a被重新赋值，但未被重新声明，且位于console之下，所以输出全局作用域中的a
+```
+
+
+
+```javascript
+let b = 1;
+function test4() {
+  console.log(b); // b is not defined
+  let b = 2;
+}
+test4();
+
+// 函数作用域中使用了es6的let重新声明了变量b，而let不同于var，它不存在变量提升的功能，所以输出报错b is not defined
+```
+
+
+
+```javascript
+function test5() {
+  let a = 1;
+  {
+    let a = 2;
+  }
+  console.log(a); // 1
+}
+test5();
+
+// 函数作用域中用let声明a为1，并在块级作用域中声明了a为2，因为console并不在函数内的块级作用域中，所以输出1
+```
+
+
+
+##### 类型比较
+
+```javascript
+var arr = [];
+	arr2 = [];
+	arr3 = [1,2,3];
+	arr4 = [1,2,3];
+console.log(arr === arr2) // false
+console.log(arr3 === arr4) // false
+
+// 两个相同的数组比较，因为两个单独的数组用不相等，所以console为false
+```
+
+说到数组比较这里有几个知识点
+
+- 要判断js中的两个数组是否相同，需要先将数组转化成字符串，再作比较。
+
+```javascript
+console.log([].toString() === [].toString()) // true
+console.log([1,2,3].toString() === [1,2,3].toString()) // true
+```
+
+- 要比较两个数组是否有相同的元素，即两个数组所有元素都相同，但元素的顺序不一定一致。只就需要先将数组进行排序，再比较两个数组是否相等。
+
+```javascript
+console.log([1,2,3].toString()== [3,2,1].toString()); // false
+console.log([1,2,3].sort().toString()== [3,1,2].sort().toString()); true
+```
+
+
+
+```javascript
+var arr = [],
+	arr2 = {};
+console.log(typeof(arr) === typeof(arr2)); // true
+
+// 因为typeof获取null，数组，对象的类型都为object，所以为true
+```
+
+```javascript
+var arr = [];
+console.log(arr instanceof Object); // true
+console.log(arr instanceof Array); // true
+
+// 利用instanceof判断一个变量是否属于某个对象的实例，在javascript中数组也是对象的一种
+```
+
+##### this指向
+
+```javascript
+var obj = {
+  name: 'xxx',
+  getName: function() {
+    return this.name
+  }
+};
+console.log(obj.getName()); // 'xxx'
+
+// this指向对象本身，所以输出xxx
+```
+
+```javascript
+var obj = {
+  myName: 'xxx',
+  getName: function() {
+    return this.myName
+  }
+};
+var nameFn = obj.getName; // 将对象中的方法赋值给了一个变量，此时方法中的this也将不再指向obj对象，从而指向window对象,所以console为undefined
+
+console.log(nameFn()); // undefined
+
+```
+
+```javascript
+var obj = {
+  myName: 'xxx',
+  getName: function() {
+    return this.myName
+  }
+};
+var obj2 = {
+  myName: 'hhh'
+};
+var nameFn = obj.getName;
+console.log(nameFn.apply(obj2)); // 'hhh'
+
+// 将obj对象中的方法赋值给了变量nameFn,但是通过apply方法将this指向了obj2对象，所以最终console为hhh
+```
+
+##### 函数参数
+
+```javascript
+function test6() {
+  console.log(Array.prototype.slice.call(arguments)); // [1,2]
+}
+test6(1,2);
+
+// 利用函数中的arguments类数组对象获取传入函数的参数数组，所以输出数组[1,2]
+```
+
+```javascript
+function test7() {
+  return function() {
+    console.log(Array.prototype.slice.call(arguments)); // 未执行到此，无输出
+  }
+}
+test7(1,2);
+
+// 同样利用arguments获取参数，但因test7(1,2)未执行return中的函数，所以无输出。若执行test7(1,2)(3,4)则会输出(3,4);
+```
+
+```javascript
+var args = [1,2];
+function test8() {
+  console.log(Array.prototype.slice.call(arguments)); // [1,2,3,4]
+}
+Array.prototype.push.call(args, 3, 4);
+test8(...args);
+
+// 利用Array.prototype.push.call()方法向args数组插入了3和4，并利用es6延展操作符(...)将数组展开并传入test8，所以console为[1,2,3,4]
+```
+
+
+
+##### 闭包问题
+
+```javascript
+var elem = document.getElementsByTagName('div'); // 如果页面上有5个div
+for(var i = 0; i < elem.length; i++) {
+  elem[i].onclick = function() {
+    alert(i); // 总是5
+  };
+}
+
+// 这是一个很常见的闭包问题，点击任何div弹出的值总是5，因为当你触发点击事件的时候i的值早已是5，可以用下面的方式解决
+
+for(var i = 0; i < elem.length; i++) {
+  (function(w) {
+    elem[w].onclick = function() {
+      alert(w); // 依次为0，1，2，3，4
+    }
+  })(i);
+}
+
+// 在绑定点击事件外部封装一个立即执行函数，并将i传入该函数即可
+```
+
+
+
+##### 对象拷贝和复制
+
+```javascript
+var obj = {
+  name: 'xxx',
+  age: 23
+};
+
+var newObj = obj;
+newObj.name = 'hhh';
+
+console.log(obj.name) // 'hhh'
+console.log(newObj.name) // 'hhh'
+
+// 将obj对象赋值给了newObj对象，从而改变newObj的name属性，但是obj对象的name属性也被篡改，这是因为实际上newObj对象获得的只是一个内存地址，而不是真正的拷贝，所以obj对象被篡改
+```
+
+```javascript
+var obj2 = {
+  name: 'xxx',
+  age" 23
+};
+
+var newObj2 = Object.assign({}, obj2, {color: 'blue'});
+newObj2.name = 'hhh';
+
+console.log(obj2.name); // 'xxx'
+console.log(newObj2.name); // 'hhh'
+console.log(newObj2.color); // 'blue'
+
+/* 利用Object.assign()方法进行对象的深拷贝可以避免源对象被篡改的可能。
+   因为Object.assign()方法可以把任意多个的源对象自身的可枚举属性拷贝给目标对象，然后返回目标对象。
+   但是Object.assign()只是一级属性复制，比浅拷贝多深拷贝一层，使用的时候还要注意这个问题。*/
+```
+
+```javascript
+var obj3 = {
+  name: 'xxx',
+  age: 23
+};
+
+var newObj3 = Object.create(obj3);
+newObj3.name = 'hhh';
+
+console.log(obj3.name); // 'xxx'
+console.log(newObj3.name); // 'hhh'
+
+// 使用Object.create()方法进行对象的拷贝，Object.create()方法可以创建一个具有指定原型对象和属性的新对象
+```
+
+ps：关于浅复制和深复制的问题 会在别的文章中单独讨论
