@@ -251,7 +251,7 @@ console.log(newObj.name) // 'hhh'
 ```javascript
 var obj2 = {
   name: 'xxx',
-  age" 23
+  age: 23
 };
 
 var newObj2 = Object.assign({}, obj2, {color: 'blue'});
