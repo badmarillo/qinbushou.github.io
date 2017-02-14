@@ -1,0 +1,58 @@
+---
+layout: post
+title: "深复制和浅复制的区别"
+subtitle: ""
+date: 2017-02-14 14:33
+author: "mirillo"
+header-img: "img/about-bg.jpg"
+catalog: false
+tags:
+    - JavaScript
+---
+
+
+
+首先深复制和浅复制只针对像Object, Array这样的复杂的对象。简单来说，浅复制只复制一层对象的属性，而深复制则递归复制了所有层级。
+
+抛开jQuery,下面是一个简单的浅复制实现
+
+```javascript
+var obj = {a: 1, arr: [2,3]};
+var shadowObj = shadowCopy(obj);
+function shadowCopy(src) {
+  var obj2 = {};
+  for (var prop in src) {
+    if (src.hasOwnProperty(prop)) {
+      obj2[prop] = src[prop];
+    }
+  }
+  return obj2;
+}
+```
+
+因为浅复制只会将对象的各个属性进行依次复制，并不会进行递归复制，而js存储对象都是存地址的，所以浅复制会导致obj.arr和shadowObj.arr指向同一块内存地址，大概的示意图如下。
+
+![qian](/img/in-post/qian.jpg)
+
+导致的结果就是：
+
+```javascript
+shadowObj.arr[1] = 5;
+
+obj.arr[1]  // 5
+```
+
+
+
+而深复制则不同，它不仅将原对象的各个属性逐个复制出去，而且将原对象各个属性所包含的对象也依次采用深复制的方法**递归复制**到新对象上。这就不会存在上面obj和shadowObj的arr属性指向同一个对象的问题。
+
+```javascript
+var obj = {a: 1, arr: [1,2]};
+var obj2 = deepCopy(obj);
+```
+
+结果如下面的示意图所示：
+
+![deep](/img/in-post/deep.jpg)
+
+需要注意的是，如果对象比较大，层级也比较多，深复制会带来性能上的问题。在遇到需要采用深复制的场景时，可以考虑有没有其他替代的方案。在实际的应用场景中，也是浅复制更为常用。
