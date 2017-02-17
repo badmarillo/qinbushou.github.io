@@ -50,7 +50,10 @@ test();
 
 ```html
 <input onkeydown="var me=this; setTimeout(function(){alert(me.value)}, 0)" name="input" type="text" value="a" /> 
+
 ```
+
+
 
 这样当onkeydown事件触发的时候，alert就被放入了下一个调用堆栈，一旦onkdeydown事件触发的堆栈关闭后就开始执行。当然浏览器还有个onkeyup事件也可以实现我们的需求。
 
