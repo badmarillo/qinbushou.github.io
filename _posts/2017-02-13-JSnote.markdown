@@ -3,7 +3,7 @@ layout: post
 title: "几个易错的js知识点整理"
 subtitle: "这些问题都是简单但又容易弄错的"
 date: 2017-02-13 14:28:00
-author: "mirillo"
+author: "marillo"
 header-img: "img/about-bg.jpg"
 catalog: true
 tags:

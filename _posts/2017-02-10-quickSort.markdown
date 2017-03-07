@@ -3,7 +3,7 @@ layout: post
 title: "柱状图－快速排序"
 subtitle: "使用html和css绘制柱状图，并在柱状图中表现出快排的整个过程"
 date: 2017-02-10 17:35:00
-author: "mirillo"
+author: "marillo"
 header-img: "img/about-bg.jpg"
 catalog: true
 tags:

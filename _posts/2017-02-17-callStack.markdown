@@ -3,7 +3,7 @@ layout: post
 title: "浅谈JavaScript的函数与栈"
 subtitle: ""
 date: 2017-02-17 15:36:00
-author: "mirillo"
+author: "marillo"
 header-img: "img/about-bg.jpg"
 catalog: false
 tags:
