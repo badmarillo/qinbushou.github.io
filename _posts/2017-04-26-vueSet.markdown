@@ -7,7 +7,7 @@ author: "marillo"
 header-img: "img/about-bg.jpg"
 catalog: false
 tags:
-    - JavaScript
+    - Vue
 ---
 
 这段时间在用vue重构面包旅行项目。我主要负责了游记部分。昨天做了一个线路日程的页面。如下图
