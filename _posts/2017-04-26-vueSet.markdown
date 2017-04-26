@@ -12,7 +12,7 @@ tags:
 
 这段时间在用vue重构面包旅行项目。我主要负责了游记部分。昨天做了一个线路日程的页面。如下图
 
-![list](/Users/yyl/Desktop/qinbushou.github.io/img/in-post/list.png)
+![list](/img/in-post/list.png)
 
 这是一个列表页面，如果第一层城市下面还有数据就可以进行收放，这么一看还是挺简单的。
 
@@ -22,7 +22,7 @@ tags:
 
 结果却不然。isOpen这个属性依然是true。
 
-因为在vue中**如果在实例创建之后添加新的属性到实例上，它不会触发视图更新**，![set2](/Users/yyl/Desktop/qinbushou.github.io/img/in-post/set2.png)
+因为在vue中**如果在实例创建之后添加新的属性到实例上，它不会触发视图更新**，![set2](/img/in-post/set2.png)
 
 其他属性都有get和set方法，但是isOpen没有。
 
@@ -38,7 +38,7 @@ this.$set(el, 'isOpen', true); // 这是全局Vue.set方法的别名
 
 这么一来新属性也就有了get,set方法。
 
-![set1](/Users/yyl/Desktop/qinbushou.github.io/img/in-post/set1.png)
+![set1](/img/in-post/set1.png)
 
 
 
