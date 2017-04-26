@@ -1,0 +1,44 @@
+---
+layout: post
+title: "vue中的set"
+subtitle: "前天工作遇到的问题，今天总结一下嘻嘻嘻，不能懒"
+data: 2017-04-26 15:11
+author: "marillo"
+header-img: "img/about-bg.jpg"
+catalog: false
+tags:
+    - JavaScript
+---
+
+这段时间在用vue重构面包旅行项目。我主要负责了游记部分。昨天做了一个线路日程的页面。如下图
+
+![list](/Users/yyl/Desktop/qinbushou.github.io/img/in-post/list.png)
+
+这是一个列表页面，如果第一层城市下面还有数据就可以进行收放，这么一看还是挺简单的。
+
+但是当时我是获取数据后，直接遍历的这些数据，给每一个第一层数据加上了一个属性'isOpen'。
+
+一开始直接用**xx.isOpen = true;**这么进行赋值的。然后点击之后当前数据的'isOpen'属性变为false。
+
+结果却不然。isOpen这个属性依然是true。
+
+因为在vue中**如果在实例创建之后添加新的属性到实例上，它不会触发视图更新**，![set2](/Users/yyl/Desktop/qinbushou.github.io/img/in-post/set2.png)
+
+其他属性都有get和set方法，但是isOpen没有。
+
+所以你在后续操作isOpen这个属性是不会更新视图的。
+
+##### 解决方法：
+
+使用 `Vue.set(object, key, value)` 方法将响应属性添加到嵌套的对象上：
+
+```javascript
+this.$set(el, 'isOpen', true); // 这是全局Vue.set方法的别名
+```
+
+这么一来新属性也就有了get,set方法。
+
+![set1](/Users/yyl/Desktop/qinbushou.github.io/img/in-post/set1.png)
+
+
+
