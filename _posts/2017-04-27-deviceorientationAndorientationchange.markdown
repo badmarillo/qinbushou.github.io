@@ -4,7 +4,7 @@ title: 'HTML5 重力感应deviceorientation与orientationchange(转载)'
 subtitle: '今天做移动端横竖屏照片，视频自适应。这是找到的一个资料。写的很好'
 data: 2017-04-27 17:28
 author: 'marillo'
-header-img: 'img/about-img.jpg'
+header-img: "img/about-bg.jpg"
 catalog: true
 tags: 
     - JavaScript
