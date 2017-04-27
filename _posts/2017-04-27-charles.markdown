@@ -1,0 +1,27 @@
+---
+layout: post
+title: 'Charles for Mac 4.0 破解版'
+subtitle: '抓包'
+data: 2017-04-27 16:56
+author: 'marillo'
+header-img: 'img/about-bg.jpg'
+catalog: false
+tags:
+    - 工具类
+---
+
+废话不多说了，先贴一波下载链接
+[点我下载Charles 4.0 ](https://pan.baidu.com/s/1mig4X4G)提取码：3xfh
+[点我下载Charles 4.0.1 ](https://pan.baidu.com/s/1jH6bnym)提取码：4icm (最好保存在自己的网盘里面嘻嘻嘻)
+
+##### 破解步骤：
+
+1、打开镜像文件dmg或者压缩包，将APP拖入应用程序中
+2、打开应用程序--->右键 显示包内容--->Contents--->Java
+3、将dmg中的 jar 文件（4.0.1压缩包中的 jar 文件）复制到第二步中替换
+4、打开 Charles APP --->Help ---> Register... ，输入任意信息即可完成注册
+5、彻底退出 Charles 然后重启 即完成破解
+
+#### 注意：一定要替换 jar 文件！一定要替换 jar 文件！一定要替换 jar 文件！
+
+**附上charles教程，别人写的，很全面[charles教程 ](http://blog.devtang.com/2015/11/14/charles-introduction/)**
